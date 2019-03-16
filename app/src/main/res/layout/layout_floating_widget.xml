@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="350dp">
+    <!--Root container-->
+    <RelativeLayout
+        android:id="@+id/root_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!--View while view is collapsed-->
+        <RelativeLayout
+            android:id="@+id/collapse_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <!--Icon of floating widget -->
+            <ImageView
+                android:id="@+id/collapsed_iv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_launcher" />
+
+            <!--Close button-->
+            <ImageView
+                android:id="@+id/img_close1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/ic_close" />
+        </RelativeLayout>
+
+        <!--View while view is expanded-->
+        <LinearLayout
+            android:id="@+id/expanded_container"
+            android:layout_width="wrap_content"
+            android:layout_height="350dp"
+            android:background="@color/colorAccent"
+            android:orientation="vertical"
+            android:padding="8dp"
+
+            tools:ignore="ContentDescription">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding">
+
+                    <ImageView
+                        android:id="@+id/imgLeft"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:src="@drawable/ic_england" />
+
+                    <TextView
+                        android:id="@+id/txtLeft"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_weight="2"
+                        android:text="English"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/imgchange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:src="@drawable/icon_change" />
+
+                    <TextView
+                        android:id="@+id/txtRight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_weight="1"
+                        android:text="Russia"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+                    <!--Icon of floating widget -->
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:src="@drawable/icon_russian" />
+                    <!--Close button-->
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/color_orange" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
+
+                    <EditText
+                        android:id="@+id/edtWord"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/background_edittext"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center|left"
+                        android:hint="Enter the word"
+                        android:paddingLeft="@dimen/padding"
+                        />
+
+                    <ImageView
+                        android:id="@+id/imgDelete"
+                        android:layout_width="@dimen/img_favorite"
+                        android:layout_height="@dimen/img_favorite"
+                        android:layout_gravity="right"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/icon_delete" />
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/color_orange" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/padding"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/word_size" />
+                    <ImageView
+                        android:id="@+id/imgListen"
+                        android:layout_width="@dimen/img_favorite"
+                        android:layout_height="@dimen/img_favorite"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/icon_listen" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnHome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@drawable/background_btn_home"
+                android:text="@string/home" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <!--Close button-->
+    <ImageView
+        android:id="@+id/img_close2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="right"
+        android:layout_margin="@dimen/padding"
+        android:src="@drawable/ic_close"
+        android:visibility="gone" />
+
+</FrameLayout>
