@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     Toolbar toolBar;
     FragmentManager fragmentManager;
-    FrameLayout frameTrangChu;
+    FrameLayout frameTrangChu,clearFocus;
     CoppyDatabase mCoppyDatabase;
     createDatabase mCreate;
     BottomNavigationView bottomNavigationView;
@@ -72,9 +72,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.NavigationViewTrangChu);
         toolBar = findViewById(R.id.toolbar);
         frameTrangChu = findViewById(R.id.frameTrangChu);
+        clearFocus = findViewById(R.id.clearFocus);
+        clearFocus.clearFocus();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         toolBar.setTitle("Home");
-        txtFocus = findViewById(R.id.txtFocus);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        txtFocus = findViewById(R.id.txtFocus);
+
         mCoppyDatabase = new CoppyDatabase(this);
         mCoppyDatabase.createDB();
         mCreate = new createDatabase(this);
@@ -347,7 +348,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transactionSearch.replace(R.id.frameTrangChu, fragmentSeach);
         transactionSearch.commit();
         frameTrangChu.clearFocus();
-        txtFocus.setFocusable(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
             askPermission();

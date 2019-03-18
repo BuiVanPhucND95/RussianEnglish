@@ -16,6 +16,8 @@ public class createDatabase extends SQLiteOpenHelper {
     public static final String TB_FAVORETIS_WORD = "WORD";
     public static final String TB_FAVORETIS_DEFINITION = "definition";
 
+    public static final String TB_FAVORETIS_STATUS = "STATUS";
+
 
     public createDatabase(Context context) {
         super(context, "English", null, 1);
@@ -27,7 +29,7 @@ public class createDatabase extends SQLiteOpenHelper {
                 + TB_HISTORY_WORD + " TEXT , " + TB_HISTORY_DEFINITION + " TEXT )";
 
         String tbFAVORETIS = "CREATE TABLE " + TB_FAVORETIS + " ( " + TB_FAVORETIS_ID + " INTEGER PRIMARY KEY ,"
-                + TB_FAVORETIS_WORD + " TEXT , " + TB_FAVORETIS_DEFINITION + " TEXT )";
+                + TB_FAVORETIS_WORD + " TEXT , " + TB_FAVORETIS_DEFINITION + " TEXT , "+ TB_FAVORETIS_STATUS +" TEXT )";
 
         db.execSQL(tbFAVORETIS);
         db.execSQL(tbHISTORY);

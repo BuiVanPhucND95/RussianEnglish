@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.freelancer.buivanphuc.russianenglish.R;
 import com.freelancer.buivanphuc.russianenglish.activity.MainActivity;
@@ -41,6 +43,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
     View collapsedView;
     View expandedView;
     Button btnHome;
+
     public FloatingViewService() {
     }
 
@@ -216,13 +219,13 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 if (checkChange) {
                     txtLeft.setText("English");
                     txtRight.setText("Russia");
-//                    imgLeft.setImageResource(R.drawable.ic_england);
-//                    imgRight.setImageResource(R.drawable.icon_russian);
+                    imgLeft.setImageResource(R.drawable.ic_england);
+                    imgRight.setImageResource(R.drawable.icon_russian);
                 } else {
                     txtLeft.setText("Russia");
                     txtRight.setText("English");
-//                    imgRight.setImageResource(R.drawable.ic_england);
-//                    imgLeft.setImageResource(R.drawable.icon_russian);
+                    imgRight.setImageResource(R.drawable.ic_england);
+                    imgLeft.setImageResource(R.drawable.icon_russian);
                 }
                 break;
             case R.id.img_close2:
@@ -243,6 +246,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
             case R.id.imgListen:
                 tts.speak(edtWord.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
                 break;
+
         }
     }
 }

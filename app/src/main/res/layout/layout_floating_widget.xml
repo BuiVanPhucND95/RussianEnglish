@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/root_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="350dp">
 
         <!--View while view is collapsed-->
         <RelativeLayout
@@ -65,7 +65,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:src="@drawable/ic_england" />
 
                     <TextView
@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/margin"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:text="English"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
@@ -84,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:src="@drawable/icon_change" />
 
                     <TextView
@@ -99,10 +99,11 @@
                         android:textSize="18sp" />
                     <!--Icon of floating widget -->
                     <ImageView
+                        android:id="@+id/imgRight"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:src="@drawable/icon_russian" />
                     <!--Close button-->
 

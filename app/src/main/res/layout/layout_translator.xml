@@ -36,7 +36,6 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:src="@drawable/icon_change" />
-
         <TextView
             android:id="@+id/txtRight"
             android:layout_width="wrap_content"

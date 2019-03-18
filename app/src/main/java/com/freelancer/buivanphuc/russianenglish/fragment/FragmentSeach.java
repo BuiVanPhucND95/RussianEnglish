@@ -1,5 +1,6 @@
 package com.freelancer.buivanphuc.russianenglish.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -32,7 +33,10 @@ public class FragmentSeach extends Fragment {
     SearchAdapter mSearchAdapter;
     ImageView imgSpeech;
     protected static final int RESULT_SPEECH = 111;
-    String sChuoi ="";
+    String sChuoi = "";
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,18 +45,25 @@ public class FragmentSeach extends Fragment {
         lvSearch = view.findViewById(R.id.lvSearch);
         imgSpeech = view.findViewById(R.id.imgSpeech);
         mWordsDAO = new WordsDAO(getContext());
-        lvSearch.setFocusable(true);
-        edtInput.clearFocus();
         edtInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 search();
+            }
+        });
+        edtInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtInput.setFocusableInTouchMode(true);
             }
         });
         imgSpeech.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +76,7 @@ public class FragmentSeach extends Fragment {
         });
         return view;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -77,18 +89,25 @@ public class FragmentSeach extends Fragment {
                 }
         }
     }
-    private void search()
-    {
+
+    private void search() {
         lvSearch.setFocusable(false);
         String sKey = edtInput.getText().toString();
-        if(!sKey.isEmpty())
-        {
+        if (!sKey.isEmpty()) {
             List<WordsDTO> wordsDTOList = mWordsDAO.search(sKey);
-            mSearchAdapter = new SearchAdapter(getContext(),R.layout.item_search,wordsDTOList);
+            mSearchAdapter = new SearchAdapter(getContext(), R.layout.item_search, wordsDTOList);
             lvSearch.setAdapter(mSearchAdapter);
             mSearchAdapter.notifyDataSetChanged();
-        }else {
+        } else {
             mSearchAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        edtInput.clearFocus();
+        edtInput.setFocusableInTouchMode(false);
+        lvSearch.setFocusable(true);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.freelancer.buivanphuc.russianenglish.activity.DetailKeyWordActivity;
 import com.freelancer.buivanphuc.russianenglish.dao.FavoretisDAO;
+import com.freelancer.buivanphuc.russianenglish.dao.WordsDAO;
 import com.freelancer.buivanphuc.russianenglish.dto.FavoretisDTO;
 import com.freelancer.buivanphuc.russianenglish.dto.WordsDTO;
 import com.freelancer.buivanphuc.russianenglish.R;
@@ -84,18 +86,23 @@ public class SearchAdapter extends BaseAdapter {
                 FavoretisDTO favoretisDTO = new FavoretisDTO(wordsDTO.getId(), wordsDTO.getWord(), wordsDTO.getDefinition());
                 boolean check = favoretisDAO.addFavoretis(favoretisDTO);
                 if (check) {
-                    if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
-                        viewHolderSearch.imgFavorites.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.ic_favorited));
-                    else if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1)
-                        viewHolderSearch.imgFavorites.setBackground(context.getResources().getDrawable(R.drawable.ic_favorited));
-                    else
-                        viewHolderSearch.imgFavorites.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_favorited));
-                    Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show();
+                    favoretisDAO.updateStatus(wordsDTO.getId(), "true");
+                    viewHolderSearch.imgFavorites.setImageResource(R.drawable.ic_favorited);
+
                 } else {
                     Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        String status = favoretisDAO.getStatus(wordsDTO.getId());
+        Log.d("status",status);
+        if(status.equals("true"))
+        {
+            viewHolderSearch.imgFavorites.setImageResource(R.drawable.ic_favorited);
+        }else{
+            viewHolderSearch.imgFavorites.setImageResource(R.drawable.ic_not_favorite);
+        }
+
         return view;
     }
 

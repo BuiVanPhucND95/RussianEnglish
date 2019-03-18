@@ -49,6 +49,7 @@ public class FavoretisDAO {
         }
         return favoretisDTOList;
     }
+
     public boolean DeleteFavo(int ID) {
         long kiemTra = database.delete(createDatabase.TB_FAVORETIS, createDatabase.TB_FAVORETIS_ID + " = " + ID, null);
         if (kiemTra != 0) {
@@ -56,5 +57,30 @@ public class FavoretisDAO {
         } else {
             return false;
         }
+    }
+
+    public boolean updateStatus(int id, String status) {
+        status = "'" + status + "'";
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(createDatabase.TB_FAVORETIS_STATUS, status);
+        long check = database.update(createDatabase.TB_FAVORETIS, contentValues, createDatabase.TB_FAVORETIS_ID + " = " + id, null);
+        if (check != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String getStatus(int id) {
+        String status = "";
+        String query = "select * from " + createDatabase.TB_FAVORETIS + " where " + createDatabase.TB_FAVORETIS_ID + " = " + id;
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            status = cursor.getString(cursor.getColumnIndex(createDatabase.TB_FAVORETIS_STATUS));
+            cursor.moveToNext();
+        }
+        return status;
+
     }
 }

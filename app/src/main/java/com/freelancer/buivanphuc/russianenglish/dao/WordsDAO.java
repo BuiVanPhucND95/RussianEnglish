@@ -1,5 +1,6 @@
 package com.freelancer.buivanphuc.russianenglish.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,6 +29,7 @@ public class WordsDAO {
             wordsDTO.setDefinition(cursor.getString(cursor.getColumnIndex("definition")));
             wordsDTO.setId(cursor.getInt(cursor.getColumnIndex("_id")));
             wordsDTO.setWord(cursor.getString(cursor.getColumnIndex("word")));
+
             wordsDTOList.add(wordsDTO);
             cursor.moveToNext();
         }
@@ -57,4 +59,5 @@ public class WordsDAO {
         }
         return sWord;
     }
+
 }
