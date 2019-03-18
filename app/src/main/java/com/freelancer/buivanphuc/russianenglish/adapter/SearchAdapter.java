@@ -94,14 +94,6 @@ public class SearchAdapter extends BaseAdapter {
                 }
             }
         });
-        String status = favoretisDAO.getStatus(wordsDTO.getId());
-        Log.d("status",status);
-        if(status.equals("true"))
-        {
-            viewHolderSearch.imgFavorites.setImageResource(R.drawable.ic_favorited);
-        }else{
-            viewHolderSearch.imgFavorites.setImageResource(R.drawable.ic_not_favorite);
-        }
 
         return view;
     }
