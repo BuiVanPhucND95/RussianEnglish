@@ -123,6 +123,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
                                 collapsedView.setVisibility(View.GONE);
                                 expandedView.setVisibility(View.VISIBLE);
                                 img_close2.setVisibility(View.VISIBLE);
+
                             }
                         }
                         return true;
@@ -237,10 +238,9 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 edtWord.setText("");
                 break;
             case R.id.btnHome:
-                Intent intent = new Intent(FloatingViewService.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                //close the service and remove view from the view hierarchy
+//                Intent intent = new Intent(FloatingViewService.this, MainActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
                 stopSelf();
                 break;
             case R.id.imgListen:
