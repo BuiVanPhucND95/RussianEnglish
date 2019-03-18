@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible">
+            >
 
             <!--Icon of floating widget -->
             <ImageView
@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="350dp"
             android:background="@color/colorAccent"
+            android:visibility="gone"
             android:orientation="vertical"
             android:padding="8dp"
 

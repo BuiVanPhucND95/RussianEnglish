@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -35,8 +36,6 @@ public class FragmentSeach extends Fragment {
     protected static final int RESULT_SPEECH = 111;
     String sChuoi = "";
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,10 +59,12 @@ public class FragmentSeach extends Fragment {
                 search();
             }
         });
-        edtInput.setOnClickListener(new View.OnClickListener() {
+
+        edtInput.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
                 edtInput.setFocusableInTouchMode(true);
+                return false;
             }
         });
         imgSpeech.setOnClickListener(new View.OnClickListener() {

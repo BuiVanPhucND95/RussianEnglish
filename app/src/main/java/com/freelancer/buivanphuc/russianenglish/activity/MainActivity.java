@@ -258,14 +258,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_fast:
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                     startService(new Intent(MainActivity.this, FloatingViewService.class));
-                    finish();
                 } else if (Settings.canDrawOverlays(this)) {
                     startService(new Intent(MainActivity.this, FloatingViewService.class));
-                    finish();
                 } else {
                     askPermission();
                     Toast.makeText(this, "You need System Alert Window Permission to do this", Toast.LENGTH_SHORT).show();
                 }
+                drawerLayout.closeDrawers();
                 break;
             case R.id.nav_share:
                 try {

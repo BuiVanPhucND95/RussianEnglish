@@ -238,9 +238,6 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 edtWord.setText("");
                 break;
             case R.id.btnHome:
-//                Intent intent = new Intent(FloatingViewService.this, MainActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
                 stopSelf();
                 break;
             case R.id.imgListen:
