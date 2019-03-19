@@ -3,7 +3,6 @@ package com.freelancer.buivanphuc.russianenglish.activity;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -238,7 +237,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.transator:
                 menuItem.setChecked(true);
                 menuItem.setCheckable(true);
-                menuItem.setIconTintList(ColorStateList.valueOf(R.color.color_orange));
                 FragmentTransaction transactiontransator = fragmentManager.beginTransaction();
                 FragmentTranslator fragmenttransator = new FragmentTranslator();
                 transactiontransator.replace(R.id.frameTrangChu, fragmenttransator);
