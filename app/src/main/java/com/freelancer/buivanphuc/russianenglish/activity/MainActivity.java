@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -17,16 +18,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.freelancer.buivanphuc.russianenglish.BuildConfig;
+import com.freelancer.buivanphuc.russianenglish.R;
 import com.freelancer.buivanphuc.russianenglish.database.CoppyDatabase;
 import com.freelancer.buivanphuc.russianenglish.database.createDatabase;
 import com.freelancer.buivanphuc.russianenglish.fragment.FragmentAdjective;
@@ -47,7 +46,6 @@ import com.freelancer.buivanphuc.russianenglish.fragment.FragmentVerb;
 import com.freelancer.buivanphuc.russianenglish.fragment.FragmentWeb;
 import com.freelancer.buivanphuc.russianenglish.fragment.HistotyFragment;
 import com.freelancer.buivanphuc.russianenglish.interfaces.IGetLinks;
-import com.freelancer.buivanphuc.russianenglish.R;
 import com.freelancer.buivanphuc.russianenglish.service.FloatingViewService;
 
 
@@ -76,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         clearFocus.clearFocus();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         toolBar.setTitle("Home");
+
         setSupportActionBar(toolBar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -93,8 +92,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
         drawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
-
-        navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 

@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.freelancer.buivanphuc.russianenglish.R;
 import com.freelancer.buivanphuc.russianenglish.dao.HistoryDAO;
 import com.freelancer.buivanphuc.russianenglish.dto.HistoryDTO;
-import com.freelancer.buivanphuc.russianenglish.R;
 
 import java.util.Locale;
 
