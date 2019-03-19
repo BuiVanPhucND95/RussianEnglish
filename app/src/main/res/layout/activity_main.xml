@@ -29,6 +29,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/white" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/bgToolBar" />
                 <FrameLayout
                     android:id="@+id/frameTrangChu"
                     android:layout_width="match_parent"
@@ -44,7 +48,7 @@
                 android:layout_gravity="bottom"
                 android:layout_alignParentBottom="true"
                 app:labelVisibilityMode="labeled"
-                android:background="#444444"
+                android:background="#828282"
                 app:itemIconTint="@drawable/nav_change_item"
                 app:itemTextColor="@drawable/nav_change_item"
                 app:menu="@menu/navigation" />

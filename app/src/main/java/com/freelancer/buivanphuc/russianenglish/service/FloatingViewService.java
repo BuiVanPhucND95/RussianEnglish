@@ -6,8 +6,6 @@ import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -21,10 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.freelancer.buivanphuc.russianenglish.R;
-import com.freelancer.buivanphuc.russianenglish.activity.MainActivity;
 import com.freelancer.buivanphuc.russianenglish.dao.WordsDAO;
 
 import java.util.Locale;

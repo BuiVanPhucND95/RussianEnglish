@@ -15,4 +15,9 @@
     <dimen name="padding_left">20dp</dimen>
     <dimen name="padding">10dp</dimen>
     <dimen name="text12sp">12sp</dimen>
+    <dimen name="size25dp">25dp</dimen>
+    <dimen name="size20dp">20dp</dimen>
+    <dimen name="size5dp">5dp</dimen>
+    <dimen name="size50dp">50dp</dimen>
+    <dimen name="size100dp">100dp</dimen>
 </resources>
