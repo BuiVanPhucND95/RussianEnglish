@@ -1,7 +1,6 @@
 package com.freelancer.buivanphuc.russianenglish.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,7 +24,9 @@ public class GrammarActivity extends AppCompatActivity {
     WebView htmlWebView;
     String sLink = "";
     Toolbar toolbar;
-
+    String sTitle;
+    public static  boolean sCheckGrammarActivity = false;
+    public static boolean sStopActivity = false;
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +38,8 @@ public class GrammarActivity extends AppCompatActivity {
         webSetting.setJavaScriptEnabled(true);
         webSetting.setDisplayZoomControls(true);
         sLink = getIntent().getStringExtra("link");
-
+        sTitle = getIntent().getStringExtra("title");
+        toolbar.setTitle(sTitle);
         AssetManager mgr = getBaseContext().getAssets();
         try {
             if (!sLink.isEmpty()) {
@@ -53,14 +55,23 @@ public class GrammarActivity extends AppCompatActivity {
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //toolbar.setNavigationIcon(R.drawable.icon_back);
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                onBackPressed();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        return;
     }
 
     public static String StreamToString(InputStream in) throws IOException {
@@ -78,5 +89,11 @@ public class GrammarActivity extends AppCompatActivity {
         } finally {
         }
         return writer.toString();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sCheckGrammarActivity = true;
     }
 }

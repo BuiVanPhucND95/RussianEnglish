@@ -4,14 +4,23 @@ public class FavoretisDTO {
     private int id;
     private String word;
     private String definition;
-
+    private String status;
     public FavoretisDTO(){
 
     }
-    public FavoretisDTO(int id, String word, String definition) {
+    public FavoretisDTO(int id, String word, String definition,String status) {
         this.id = id;
         this.word = word;
         this.definition = definition;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getId() {

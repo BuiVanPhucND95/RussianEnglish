@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
@@ -94,9 +93,9 @@
                     android:icon="@drawable/icon_feedback"
                     android:title="@string/feedback" />
                 <!--<item-->
-                    <!--android:id="@+id/nav_about"-->
-                    <!--android:icon="@drawable/ic_about"-->
-                    <!--android:title="@string/about" />-->
+                <!--android:id="@+id/nav_about"-->
+                <!--android:icon="@drawable/ic_about"-->
+                <!--android:title="@string/about" />-->
                 <item
                     android:id="@+id/nav_rate"
                     android:icon="@drawable/ic_rate"
@@ -105,4 +104,5 @@
             </group>
         </menu>
     </item>
+</group>
 </menu>

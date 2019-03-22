@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/bgToolBar" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,6 +22,14 @@
             android:padding="10dp" />
 
         <ImageView
+            android:id="@+id/imgClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="@dimen/size50dp"
+            android:src="@drawable/ic_clear_black_24dp" />
+
+        <ImageView
             android:id="@+id/imgSpeech"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -28,16 +37,17 @@
             android:layout_margin="5dp"
             android:src="@drawable/icon_record" />
     </FrameLayout>
+
     <View
-        android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/color_orange" />
+        android:background="@color/color_orange"
+        android:focusable="true" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/lvSearch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/padding">
-    </ListView>
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

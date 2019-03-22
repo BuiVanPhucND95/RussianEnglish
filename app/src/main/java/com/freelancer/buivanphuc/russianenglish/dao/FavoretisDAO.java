@@ -25,7 +25,7 @@ public class FavoretisDAO {
         contentValues.put(createDatabase.TB_FAVORETIS_ID, favoretisDTO.getId());
         contentValues.put(createDatabase.TB_FAVORETIS_WORD, favoretisDTO.getWord());
         contentValues.put(createDatabase.TB_FAVORETIS_DEFINITION, favoretisDTO.getDefinition());
-
+        contentValues.put(createDatabase.TB_FAVORETIS_STATUS,favoretisDTO.getStatus());
         long kiemtra = database.insert(createDatabase.TB_FAVORETIS, null, contentValues);
         if (kiemtra != 0) {
             return true;
@@ -44,6 +44,8 @@ public class FavoretisDAO {
             favoretisDTO.setId(cursor.getInt(cursor.getColumnIndex(createDatabase.TB_FAVORETIS_ID)));
             favoretisDTO.setWord(cursor.getString(cursor.getColumnIndex(createDatabase.TB_FAVORETIS_WORD)));
             favoretisDTO.setDefinition(cursor.getString(cursor.getColumnIndex(createDatabase.TB_FAVORETIS_DEFINITION)));
+            favoretisDTO.setStatus((cursor.getString(cursor.getColumnIndex(createDatabase.TB_FAVORETIS_STATUS))));
+
             favoretisDTOList.add(favoretisDTO);
             cursor.moveToNext();
         }

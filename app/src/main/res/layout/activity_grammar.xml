@@ -9,7 +9,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/bgToolBar" />
+        android:background="@color/white" />
+    <View
+        android:background="@color/bgToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

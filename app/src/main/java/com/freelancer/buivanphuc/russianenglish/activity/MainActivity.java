@@ -1,7 +1,6 @@
 package com.freelancer.buivanphuc.russianenglish.activity;
 
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -9,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -21,45 +21,34 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.freelancer.buivanphuc.russianenglish.R;
 import com.freelancer.buivanphuc.russianenglish.database.CoppyDatabase;
 import com.freelancer.buivanphuc.russianenglish.database.createDatabase;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentAdjective;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentArticle;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentBook1;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentBook2;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentConjunction;
 import com.freelancer.buivanphuc.russianenglish.fragment.FragmentFavoretis;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentInterjection;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentNouns;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentNumberal;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentParticles;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentPreposition;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentPronoun;
 import com.freelancer.buivanphuc.russianenglish.fragment.FragmentSeach;
 import com.freelancer.buivanphuc.russianenglish.fragment.FragmentTranslator;
-import com.freelancer.buivanphuc.russianenglish.fragment.FragmentVerb;
 import com.freelancer.buivanphuc.russianenglish.fragment.FragmentWeb;
 import com.freelancer.buivanphuc.russianenglish.fragment.HistotyFragment;
-import com.freelancer.buivanphuc.russianenglish.interfaces.IGetLinks;
 import com.freelancer.buivanphuc.russianenglish.service.FloatingViewService;
+import com.freelancer.buivanphuc.russianenglish.util.NavigationUtil;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IGetLinks,
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         BottomNavigationView.OnNavigationItemSelectedListener {
     private static final int SYSTEM_ALERT_WINDOW_PERMISSION = 2084;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolBar;
     FragmentManager fragmentManager;
-    FrameLayout frameTrangChu,clearFocus;
+    FrameLayout frameTrangChu;
     CoppyDatabase mCoppyDatabase;
     createDatabase mCreate;
     BottomNavigationView bottomNavigationView;
-    TextView txtFocus;
+    Boolean mCheckFastKey = false;
+    public static boolean sCheckMainActivity = false;
+
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +58,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.NavigationViewTrangChu);
         toolBar = findViewById(R.id.toolbar);
         frameTrangChu = findViewById(R.id.frameTrangChu);
-        clearFocus = findViewById(R.id.clearFocus);
-        clearFocus.clearFocus();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         toolBar.setTitle("Home");
+
+        mCoppyDatabase = new CoppyDatabase(this);
+        mCoppyDatabase.createDB();
+        mCreate = new createDatabase(this);
+        mCreate.open();
 
         setSupportActionBar(toolBar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
@@ -94,14 +86,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-        mCoppyDatabase = new CoppyDatabase(this);
-        mCoppyDatabase.createDB();
-        mCreate = new createDatabase(this);
-        mCreate.open();
         fragmentManager = getSupportFragmentManager();
-
-
     }
+
+    private void IntentCategoryActivity(String title) {
+        Intent intent = new Intent(this, CategoryActivity.class);
+        intent.putExtra("check", title);
+        startActivity(intent);
+    }
+
     @SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -109,108 +102,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
         switch (id) {
             case R.id.nouns:
-                FragmentTransaction transactionNouns = fragmentManager.beginTransaction();
-                FragmentNouns fragmentNouns = new FragmentNouns();
-                fragmentNouns.setInterface(this);
-                transactionNouns.replace(R.id.frameTrangChu, fragmentNouns);
-                transactionNouns.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Nouns");
                 break;
             case R.id.article:
-                FragmentTransaction transactionNounsArticle = fragmentManager.beginTransaction();
-                FragmentArticle fragmentNounsArticle = new FragmentArticle();
-                fragmentNounsArticle.setInterface(this);
-                transactionNounsArticle.replace(R.id.frameTrangChu, fragmentNounsArticle);
-                transactionNounsArticle.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Article");
                 break;
             case R.id.pronoun:
-                FragmentTransaction transactionNounsPronoun = fragmentManager.beginTransaction();
-                FragmentPronoun fragmentNounsPronoun = new FragmentPronoun();
-                fragmentNounsPronoun.setInterface(this);
-                transactionNounsPronoun.replace(R.id.frameTrangChu, fragmentNounsPronoun);
-                transactionNounsPronoun.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Pronoun");
                 break;
             case R.id.numberal:
-                FragmentTransaction transactionNounsnumberal = fragmentManager.beginTransaction();
-                FragmentNumberal fragmentNounsnumberal = new FragmentNumberal();
-                fragmentNounsnumberal.setInterface(this);
-                transactionNounsnumberal.replace(R.id.frameTrangChu, fragmentNounsnumberal);
-                transactionNounsnumberal.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Numberal");
                 break;
             case R.id.adjective:
-                FragmentTransaction transactionNounsadjective = fragmentManager.beginTransaction();
-                FragmentAdjective fragmentNounsadjective = new FragmentAdjective();
-                fragmentNounsadjective.setInterface(this);
-                transactionNounsadjective.replace(R.id.frameTrangChu, fragmentNounsadjective);
-                transactionNounsadjective.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Adjective");
                 break;
             case R.id.adverb:
-                FragmentTransaction transactionNounsadverb = fragmentManager.beginTransaction();
-                FragmentVerb fragmentNounsadverb = new FragmentVerb();
-                fragmentNounsadverb.setInterface(this);
-                transactionNounsadverb.replace(R.id.frameTrangChu, fragmentNounsadverb);
-                transactionNounsadverb.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Adverb");
                 break;
             case R.id.verb:
-                FragmentTransaction transactionNounsverb = fragmentManager.beginTransaction();
-                FragmentVerb fragmentNounsverb = new FragmentVerb();
-                fragmentNounsverb.setInterface(this);
-                transactionNounsverb.replace(R.id.frameTrangChu, fragmentNounsverb);
-                transactionNounsverb.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Verb");
                 break;
             case R.id.preposition:
-                FragmentTransaction transactionNounspreposition = fragmentManager.beginTransaction();
-                FragmentPreposition fragmentNounspreposition = new FragmentPreposition();
-                fragmentNounspreposition.setInterface(this);
-                transactionNounspreposition.replace(R.id.frameTrangChu, fragmentNounspreposition);
-                transactionNounspreposition.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Preposition");
                 break;
             case R.id.conjunction:
-                FragmentTransaction transactionNounsconjunction = fragmentManager.beginTransaction();
-                FragmentConjunction fragmentNounsconjunction = new FragmentConjunction();
-                fragmentNounsconjunction.setInterface(this);
-                transactionNounsconjunction.replace(R.id.frameTrangChu, fragmentNounsconjunction);
-                transactionNounsconjunction.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Conjunction");
                 break;
             case R.id.particles:
-                FragmentTransaction transactionNounsparticles = fragmentManager.beginTransaction();
-                FragmentParticles fragmentNounsparticles = new FragmentParticles();
-                fragmentNounsparticles.setInterface(this);
-                transactionNounsparticles.replace(R.id.frameTrangChu, fragmentNounsparticles);
-                transactionNounsparticles.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Particles");
                 break;
             case R.id.interjection:
-                FragmentTransaction transactionNounsinterjection = fragmentManager.beginTransaction();
-                FragmentInterjection fragmentNounsinterjection = new FragmentInterjection();
-                fragmentNounsinterjection.setInterface(this);
-                transactionNounsinterjection.replace(R.id.frameTrangChu, fragmentNounsinterjection);
-                transactionNounsinterjection.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Interjection");
                 break;
             case R.id.nav_book1:
-                FragmentTransaction transactionNounsbook1 = fragmentManager.beginTransaction();
-                FragmentBook1 fragmentNounsbook1 = new FragmentBook1();
-                fragmentNounsbook1.setInterface(this);
-                transactionNounsbook1.replace(R.id.frameTrangChu, fragmentNounsbook1);
-                transactionNounsbook1.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Book 1");
                 break;
             case R.id.nav_book2:
-                FragmentTransaction transactionNounsbook2 = fragmentManager.beginTransaction();
-                FragmentBook2 fragmentNounsbook2 = new FragmentBook2();
-                fragmentNounsbook2.setInterface(this);
-                transactionNounsbook2.replace(R.id.frameTrangChu, fragmentNounsbook2);
-                transactionNounsbook2.commit();
-                drawerLayout.closeDrawers();
+                IntentCategoryActivity("Book 2");
                 break;
             case R.id.nav_search:
                 menuItem.setChecked(true);
@@ -236,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.transator:
                 menuItem.setChecked(true);
-                menuItem.setCheckable(true);
                 FragmentTransaction transactiontransator = fragmentManager.beginTransaction();
                 FragmentTranslator fragmenttransator = new FragmentTranslator();
                 transactiontransator.replace(R.id.frameTrangChu, fragmenttransator);
@@ -244,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.traslate_web:
                 menuItem.setChecked(true);
-                menuItem.setCheckable(true);
                 FragmentTransaction traslate_web = fragmentManager.beginTransaction();
                 FragmentWeb fragmentWeb = new FragmentWeb();
                 traslate_web.replace(R.id.frameTrangChu, fragmentWeb);
@@ -257,55 +183,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startService(new Intent(MainActivity.this, FloatingViewService.class));
                 } else {
                     askPermission();
-                    Toast.makeText(this, "You need System Alert Window Permission to do this", Toast.LENGTH_SHORT).show();
                 }
                 drawerLayout.closeDrawers();
                 break;
             case R.id.nav_share:
                 try {
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                    String shareMessage = "\nLet me recommend you this application\n\n";
-                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=com.hdpsolution.englishrussiandict";
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                    NavigationUtil.Share(this);
+                    drawerLayout.closeDrawers();
                 } catch (Exception e) {
                     //e.toString();
                 }
                 break;
             case R.id.nav_feedback:
-                Intent Email = new Intent(Intent.ACTION_SEND);
-                Email.setType("text/email");
-                Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"studyfirebase@gmail.com"});
-                Email.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
-                Email.putExtra(Intent.EXTRA_TEXT, "Dear ...," + "");
-                startActivity(Intent.createChooser(Email, "Send Feedback:"));
+                NavigationUtil.feedBack(this);
+                drawerLayout.closeDrawers();
                 break;
             case R.id.nav_rate:
-                Uri uri = Uri.parse("market://details?id=" + "com.hdpsolution.englishrussiandict");
-                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                try {
-                    startActivity(goToMarket);
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=com.hdpsolution.englishrussiandict")));
-                }
+                NavigationUtil.Rate(this);
+                drawerLayout.closeDrawers();
                 break;
         }
         return false;
     }
 
-    @Override
-    public void getLink(String link) {
-
-        Intent intent = new Intent(this, GrammarActivity.class);
-        intent.putExtra("link", link);
-        startActivity(intent);
-    }
 
     boolean doubleBackToExitPressedOnce = false;
 
@@ -331,20 +231,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                 Uri.parse("package:" + getPackageName()));
         startActivityForResult(intent, SYSTEM_ALERT_WINDOW_PERMISSION);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SYSTEM_ALERT_WINDOW_PERMISSION) {
+            {
+                startService(new Intent(MainActivity.this, FloatingViewService.class));
+            }
+
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         FragmentTransaction transactionSearch = fragmentManager.beginTransaction();
         FragmentSeach fragmentSeach = new FragmentSeach();
         transactionSearch.replace(R.id.frameTrangChu, fragmentSeach);
         transactionSearch.commit();
-        frameTrangChu.clearFocus();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
-            askPermission();
-        }
+        drawerLayout.closeDrawers();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sCheckMainActivity = true;
     }
 }

@@ -1,7 +1,6 @@
 package com.freelancer.buivanphuc.russianenglish.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
@@ -42,7 +41,6 @@ public class DetailKeyWordActivity extends AppCompatActivity {
         sKey = getIntent().getStringExtra("key");
         sDefinition = getIntent().getStringExtra("definition");
         iID = getIntent().getIntExtra("ID", 0);
-
         txtDetail.setText(sDefinition);
         txtKeyDetail.setText(sKey);
         toolbar.setTitle(sKey);
@@ -67,7 +65,7 @@ public class DetailKeyWordActivity extends AppCompatActivity {
         mHistoryDTO.setDefinition(sDefinition);
         boolean kt = mHistoryDAO.addHistory(mHistoryDTO);
         if (kt) {
-            Toast.makeText(this, "thêm thành công", Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(this, "thất bại", Toast.LENGTH_SHORT).show();
         }
@@ -78,8 +76,15 @@ public class DetailKeyWordActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        return;
+    }
+
 }

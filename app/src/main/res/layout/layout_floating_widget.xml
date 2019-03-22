@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="350dp">
+    android:layout_height="wrap_content">
     <!--Root container-->
     <RelativeLayout
         android:id="@+id/root_container"
         android:layout_width="wrap_content"
-        android:layout_height="350dp">
+        android:layout_height="wrap_content">
 
         <!--View while view is collapsed-->
         <RelativeLayout
             android:id="@+id/collapse_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <!--Icon of floating widget -->
             <ImageView
@@ -39,11 +37,11 @@
         <LinearLayout
             android:id="@+id/expanded_container"
             android:layout_width="wrap_content"
-            android:layout_height="350dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorAccent"
-            android:visibility="gone"
             android:orientation="vertical"
             android:padding="8dp"
+            android:visibility="gone"
 
             tools:ignore="ContentDescription">
 
@@ -129,8 +127,7 @@
                         android:focusableInTouchMode="true"
                         android:gravity="center|left"
                         android:hint="Enter the word"
-                        android:paddingLeft="@dimen/padding"
-                        />
+                        android:paddingLeft="@dimen/padding" />
 
                     <ImageView
                         android:id="@+id/imgDelete"
@@ -160,6 +157,7 @@
                         android:paddingLeft="@dimen/padding"
                         android:textColor="@color/black"
                         android:textSize="@dimen/word_size" />
+
                     <ImageView
                         android:id="@+id/imgListen"
                         android:layout_width="@dimen/img_favorite"

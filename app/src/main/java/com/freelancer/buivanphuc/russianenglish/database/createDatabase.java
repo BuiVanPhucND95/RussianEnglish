@@ -15,7 +15,6 @@ public class createDatabase extends SQLiteOpenHelper {
     public static final String TB_FAVORETIS_ID = "ID";
     public static final String TB_FAVORETIS_WORD = "WORD";
     public static final String TB_FAVORETIS_DEFINITION = "definition";
-
     public static final String TB_FAVORETIS_STATUS = "STATUS";
 
 

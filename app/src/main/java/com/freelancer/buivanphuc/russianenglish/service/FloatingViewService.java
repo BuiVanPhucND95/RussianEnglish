@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,11 +17,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.freelancer.buivanphuc.russianenglish.R;
+import com.freelancer.buivanphuc.russianenglish.activity.MainActivity;
 import com.freelancer.buivanphuc.russianenglish.dao.WordsDAO;
 
 import java.util.Locale;
@@ -33,13 +33,10 @@ public class FloatingViewService extends Service implements View.OnClickListener
     TextView txtLeft, txtRight, txtDetail;
     EditText edtWord;
     boolean checkChange = true;
-    LinearLayout expanded_container;
-    RelativeLayout root_container;
     TextToSpeech tts;
     View collapsedView;
     View expandedView;
     Button btnHome;
-
     public FloatingViewService() {
     }
 
@@ -60,7 +57,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
             params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT
                     , WindowManager.LayoutParams.WRAP_CONTENT
                     , WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-                    , WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+                    , WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                     PixelFormat.TRANSLUCENT);
         } else {
             params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT
@@ -77,8 +74,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
         //Add the view to the window
         mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         mWindowManager.addView(mFloatingView, params);
-        collapsedView = mFloatingView.findViewById(R.id.collapse_view);
-        expandedView = mFloatingView.findViewById(R.id.expanded_container);
+
         mWordsDAO = new WordsDAO(this);
         addControls();
         addEvents();
@@ -119,7 +115,6 @@ public class FloatingViewService extends Service implements View.OnClickListener
                                 collapsedView.setVisibility(View.GONE);
                                 expandedView.setVisibility(View.VISIBLE);
                                 img_close2.setVisibility(View.VISIBLE);
-
                             }
                         }
                         return true;
@@ -132,7 +127,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
                         mWindowManager.updateViewLayout(mFloatingView, params);
                         return true;
                 }
-                return false;
+                return true;
             }
         });
 
@@ -185,8 +180,8 @@ public class FloatingViewService extends Service implements View.OnClickListener
         edtWord = mFloatingView.findViewById(R.id.edtWord);
         img_close1 = mFloatingView.findViewById(R.id.img_close1);
         img_close2 = mFloatingView.findViewById(R.id.img_close2);
-        expanded_container = mFloatingView.findViewById(R.id.expanded_container);
-        root_container = mFloatingView.findViewById(R.id.root_container);
+        collapsedView = mFloatingView.findViewById(R.id.collapse_view);
+        expandedView = mFloatingView.findViewById(R.id.expanded_container);
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -234,7 +229,14 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 edtWord.setText("");
                 break;
             case R.id.btnHome:
-                stopSelf();
+                Log.d("KiemTra",MainActivity.sCheckMainActivity+"");
+                if (MainActivity.sCheckMainActivity ) {
+                    Intent iHome = new Intent(this, MainActivity.class);
+                    startActivity(iHome);
+                    stopSelf();
+                } else {
+                    stopSelf();
+                }
                 break;
             case R.id.imgListen:
                 tts.speak(edtWord.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
