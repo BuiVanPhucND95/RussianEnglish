@@ -25,6 +25,7 @@
         <activity android:name=".activity.CategoryActivity"/>
         <service
             android:name=".service.FloatingViewService"
+            android:enabled="true"
             android:exported="false"/>
     </application>
 
