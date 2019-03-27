@@ -101,6 +101,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         switch (id) {
+            case R.id.home:
+                drawerLayout.closeDrawers();
+                break;
             case R.id.nouns:
                 IntentCategoryActivity("Nouns");
                 break;
@@ -146,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentSeach fragmentSeach = new FragmentSeach();
                 transactionSearch.replace(R.id.frameTrangChu, fragmentSeach);
                 transactionSearch.commit();
-                drawerLayout.closeDrawers();
                 break;
             case R.id.nav_history:
                 menuItem.setChecked(true);

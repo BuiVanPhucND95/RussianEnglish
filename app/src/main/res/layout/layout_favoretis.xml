@@ -6,11 +6,11 @@
     android:layout_height="match_parent">
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/_1sdp"
         android:background="@color/bgToolBar" />
     <ListView
         android:id="@+id/lvFavoretis"
-        android:padding="@dimen/padding"
+        android:padding="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

@@ -19,17 +19,17 @@
             <!--Icon of floating widget -->
             <ImageView
                 android:id="@+id/collapsed_iv"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_launcher" />
 
             <!--Close button-->
             <ImageView
                 android:id="@+id/img_close1"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="40dp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_marginLeft="@dimen/_40sdp"
                 android:src="@drawable/ic_close" />
         </RelativeLayout>
 
@@ -40,16 +40,15 @@
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
             android:orientation="vertical"
-            android:padding="8dp"
+            android:padding="@dimen/_8sdp"
             android:visibility="gone"
-
             tools:ignore="ContentDescription">
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="@dimen/_230sdp"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/_14sdp"
                 android:background="@color/white"
                 android:orientation="vertical">
 
@@ -57,14 +56,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="@dimen/padding">
+                    android:padding="@dimen/_7sdp">
 
                     <ImageView
                         android:id="@+id/imgLeft"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/_37sdp"
+                        android:layout_height="@dimen/_37sdp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/ic_england" />
 
                     <TextView
@@ -72,11 +72,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginLeft="@dimen/_14sdp"
                         android:layout_weight="1"
                         android:text="English"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/_14sdp" />
 
                     <ImageView
                         android:id="@+id/imgchange"
@@ -84,6 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/icon_change" />
 
                     <TextView
@@ -91,16 +92,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginLeft="@dimen/_15sdp"
                         android:layout_weight="1"
                         android:text="Russia"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/_14sdp" />
                     <!--Icon of floating widget -->
                     <ImageView
                         android:id="@+id/imgRight"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:scaleType="centerCrop"
+                        android:layout_width="@dimen/_37sdp"
+                        android:layout_height="@dimen/_37sdp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:src="@drawable/icon_russian" />
@@ -110,37 +112,39 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/_1sdp"
                     android:background="@color/color_orange" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp">
+                    android:padding="@dimen/_5sdp">
 
                     <EditText
                         android:id="@+id/edtWord"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/bgToolBar"
                         android:background="@drawable/background_edittext"
                         android:focusableInTouchMode="true"
                         android:gravity="center|left"
                         android:hint="Enter the word"
-                        android:paddingLeft="@dimen/padding" />
+                        android:paddingLeft="@dimen/_10sdp" />
 
                     <ImageView
                         android:id="@+id/imgDelete"
-                        android:layout_width="@dimen/img_favorite"
-                        android:layout_height="@dimen/img_favorite"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="right"
-                        android:layout_margin="5dp"
+                        android:layout_margin="@dimen/_2sdp"
                         android:src="@drawable/icon_delete" />
                 </FrameLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/_1sdp"
                     android:background="@color/color_orange" />
 
                 <LinearLayout
@@ -154,15 +158,15 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:paddingLeft="@dimen/padding"
+                        android:paddingLeft="@dimen/_10sdp"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/word_size" />
+                        android:textSize="@dimen/_20sdp" />
 
                     <ImageView
                         android:id="@+id/imgListen"
-                        android:layout_width="@dimen/img_favorite"
-                        android:layout_height="@dimen/img_favorite"
-                        android:layout_margin="5dp"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_margin="@dimen/_5sdp"
                         android:src="@drawable/icon_listen" />
                 </LinearLayout>
 
@@ -181,12 +185,12 @@
     </RelativeLayout>
     <!--Close button-->
     <ImageView
+        android:visibility="gone"
+        android:layout_margin="5dp"
         android:id="@+id/img_close2"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
         android:layout_gravity="right"
-        android:layout_margin="@dimen/padding"
         android:src="@drawable/ic_close"
-        android:visibility="gone" />
-
+         />
 </FrameLayout>

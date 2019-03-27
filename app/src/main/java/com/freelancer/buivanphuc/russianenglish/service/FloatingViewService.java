@@ -8,7 +8,6 @@ import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -37,6 +36,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
     View collapsedView;
     View expandedView;
     Button btnHome;
+
     public FloatingViewService() {
     }
 
@@ -50,20 +50,20 @@ public class FloatingViewService extends Service implements View.OnClickListener
         super.onCreate();
 
         //Inflate the floating view layout we created
-        mFloatingView = (View) LayoutInflater.from(this).inflate(R.layout.layout_floating_widget, null);
+        mFloatingView =  LayoutInflater.from(this).inflate(R.layout.layout_floating_widget,null,false);
         //Add the view to the window.
-        final WindowManager.LayoutParams params;
+         final WindowManager.LayoutParams params;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT
                     , WindowManager.LayoutParams.WRAP_CONTENT
                     , WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-                    , WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    ,WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN,
                     PixelFormat.TRANSLUCENT);
         } else {
             params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT
                     , WindowManager.LayoutParams.WRAP_CONTENT
                     , WindowManager.LayoutParams.TYPE_PHONE
-                    , WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+                    , WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN,
                     PixelFormat.TRANSLUCENT);
         }
         //Specify the view position
@@ -122,7 +122,6 @@ public class FloatingViewService extends Service implements View.OnClickListener
                         //Calculate the X and Y coordinates of the view.
                         params.x = initialX + (int) (event.getRawX() - initialTouchX);
                         params.y = initialY + (int) (event.getRawY() - initialTouchY);
-
                         //Update the layout with new X & Y coordinate
                         mWindowManager.updateViewLayout(mFloatingView, params);
                         return true;
@@ -202,7 +201,6 @@ public class FloatingViewService extends Service implements View.OnClickListener
         super.onDestroy();
         if (mFloatingView != null) mWindowManager.removeView(mFloatingView);
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -229,8 +227,7 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 edtWord.setText("");
                 break;
             case R.id.btnHome:
-                Log.d("KiemTra",MainActivity.sCheckMainActivity+"");
-                if (MainActivity.sCheckMainActivity ) {
+                if (MainActivity.sCheckMainActivity) {
                     Intent iHome = new Intent(this, MainActivity.class);
                     startActivity(iHome);
                     stopSelf();

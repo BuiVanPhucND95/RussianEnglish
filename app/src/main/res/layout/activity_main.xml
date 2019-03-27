@@ -30,7 +30,7 @@
                     android:background="@color/white" />
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/_1sdp"
                     android:background="@color/bgToolBar" />
                 <FrameLayout
                     android:id="@+id/frameTrangChu"

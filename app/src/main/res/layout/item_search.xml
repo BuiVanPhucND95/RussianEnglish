@@ -7,17 +7,17 @@
     <TextView
         android:id="@+id/txtKey"
         android:layout_weight="1"
-        android:padding="@dimen/padding"
-        android:textSize="@dimen/word_size"
+        android:padding="@dimen/_10sdp"
+        android:textSize="@dimen/_15sdp"
         android:layout_gravity="center"
         android:text="Hello"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <ImageView
-        android:layout_margin="@dimen/margin"
+        android:layout_margin="@dimen/_15sdp"
         android:id="@+id/imgFavories"
         android:scaleType="fitXY"
-        android:layout_width="@dimen/img_favorite"
+        android:layout_width="@dimen/_28sdp"
         android:src="@drawable/ic_not_favorite"
-        android:layout_height="@dimen/img_favorite" />
+        android:layout_height="@dimen/_28sdp" />
 </LinearLayout>

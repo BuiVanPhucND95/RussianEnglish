@@ -36,7 +36,7 @@ public class CategoryActivity extends AppCompatActivity implements NavigationVie
     CategoryAdapter categoryAdapter;
     private static final int SYSTEM_ALERT_WINDOW_PERMISSION = 204;
     public static Boolean mCheckCategoryActivity = false;
-
+    ActionBarDrawerToggle drawerToggle;
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class CategoryActivity extends AppCompatActivity implements NavigationVie
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.mo, R.string.dong) {
+         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.mo, R.string.dong) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -63,9 +63,11 @@ public class CategoryActivity extends AppCompatActivity implements NavigationVie
         };
         drawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
+
         check = getIntent().getStringExtra("check");
         toolBar.setTitle(check);
         setTitle(check);
+
         init();
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -107,11 +109,13 @@ public class CategoryActivity extends AppCompatActivity implements NavigationVie
         setAdapter();
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         switch (id) {
+            case R.id.home:
+                startActivity(new Intent(this,MainActivity.class));
+                break;
             case R.id.nouns:
                 list = CategoryUtil.addNouns();
                 ItemCheck();
@@ -219,7 +223,6 @@ public class CategoryActivity extends AppCompatActivity implements NavigationVie
             {
                 startService(new Intent(CategoryActivity.this, FloatingViewService.class));
             }
-
         }
     }
 
