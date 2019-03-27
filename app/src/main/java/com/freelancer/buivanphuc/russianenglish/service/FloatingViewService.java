@@ -24,7 +24,7 @@ import com.freelancer.buivanphuc.russianenglish.dao.WordsDAO;
 
 import java.util.Locale;
 
-public class FloatingViewService extends Service implements View.OnClickListener {
+public class FloatingViewService extends Service implements View.OnClickListener { //
     private WindowManager mWindowManager;
     private View mFloatingView;
     WordsDAO mWordsDAO;
