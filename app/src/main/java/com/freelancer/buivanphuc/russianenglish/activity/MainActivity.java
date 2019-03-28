@@ -46,8 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     CoppyDatabase mCoppyDatabase;
     createDatabase mCreate;
     BottomNavigationView bottomNavigationView;
-    Boolean mCheckFastKey = false;
-    public static boolean sCheckMainActivity = false;
+    public static boolean sCheckMainActivity;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -63,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mCoppyDatabase = new CoppyDatabase(this);
         mCoppyDatabase.createDB();
+
         mCreate = new createDatabase(this);
         mCreate.open();
 
@@ -261,6 +261,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        sCheckMainActivity = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sCheckMainActivity = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         sCheckMainActivity = true;
     }
 }

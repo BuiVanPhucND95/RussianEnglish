@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <ImageView
+
         android:layout_margin="@dimen/_15sdp"
         android:id="@+id/imgFavories"
         android:scaleType="fitXY"

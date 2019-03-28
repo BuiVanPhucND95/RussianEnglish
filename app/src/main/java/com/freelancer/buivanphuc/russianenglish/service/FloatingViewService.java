@@ -6,6 +6,7 @@ import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -46,24 +47,29 @@ public class FloatingViewService extends Service implements View.OnClickListener
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
 
         //Inflate the floating view layout we created
-        mFloatingView =  LayoutInflater.from(this).inflate(R.layout.layout_floating_widget,null,false);
+        mFloatingView = LayoutInflater.from(this).inflate(R.layout.layout_floating_widget, null, false);
         //Add the view to the window.
-         final WindowManager.LayoutParams params;
+        final WindowManager.LayoutParams params;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT
                     , WindowManager.LayoutParams.WRAP_CONTENT
                     , WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-                    ,WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN,
+                    , WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN,
                     PixelFormat.TRANSLUCENT);
         } else {
             params = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT
                     , WindowManager.LayoutParams.WRAP_CONTENT
                     , WindowManager.LayoutParams.TYPE_PHONE
-                    , WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN,
+                    , WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                     PixelFormat.TRANSLUCENT);
         }
         //Specify the view position
@@ -78,8 +84,6 @@ public class FloatingViewService extends Service implements View.OnClickListener
         mWordsDAO = new WordsDAO(this);
         addControls();
         addEvents();
-
-
         //Set the close button
         ImageView closeButtonCollapsed = mFloatingView.findViewById(R.id.img_close1);
         closeButtonCollapsed.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +205,8 @@ public class FloatingViewService extends Service implements View.OnClickListener
         super.onDestroy();
         if (mFloatingView != null) mWindowManager.removeView(mFloatingView);
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -227,13 +233,12 @@ public class FloatingViewService extends Service implements View.OnClickListener
                 edtWord.setText("");
                 break;
             case R.id.btnHome:
-                if (MainActivity.sCheckMainActivity) {
-                    Intent iHome = new Intent(this, MainActivity.class);
-                    startActivity(iHome);
-                    stopSelf();
-                } else {
-                    stopSelf();
-                }
+                Intent iHome = new Intent(this, MainActivity.class);
+                iHome.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                iHome.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(iHome);
+                stopSelf();
+
                 break;
             case R.id.imgListen:
                 tts.speak(edtWord.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);

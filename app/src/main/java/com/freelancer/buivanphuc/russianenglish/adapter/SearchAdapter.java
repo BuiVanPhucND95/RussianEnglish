@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,40 +24,44 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     int layout;
     List<WordsDTO> wordsDTOList;
     FavoretisDAO favoretisDAO;
-    public SearchAdapter(Context context, int layout, List<WordsDTO> wordsDTOList)
-    {
+    private boolean checkBackground = false;
+    public SearchAdapter(Context context, int layout, List<WordsDTO> wordsDTOList) {
         this.context = context;
         this.layout = layout;
         this.wordsDTOList = wordsDTOList;
         favoretisDAO = new FavoretisDAO(context);
     }
+
     public class ViewHolderSearch extends RecyclerView.ViewHolder {
         ImageView imgFavorites;
         TextView txtKey;
+
         public ViewHolderSearch(@NonNull View itemView) {
             super(itemView);
             imgFavorites = itemView.findViewById(R.id.imgFavories);
             txtKey = itemView.findViewById(R.id.txtKey);
         }
+
+
     }
+
     @NonNull
     @Override
     public ViewHolderSearch onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(layout, viewGroup, false);
-        ViewHolderSearch viewHolder= new ViewHolderSearch(view);
+        ViewHolderSearch viewHolder = new ViewHolderSearch(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolderSearch viewHolder, int i) {
-        final WordsDTO wordsDTO =  wordsDTOList.get(i);
+    public void onBindViewHolder(@NonNull final ViewHolderSearch viewHolder, final int i) {
+        final WordsDTO wordsDTO = wordsDTOList.get(i);
 
         final int id = wordsDTO.getId();
         final String word = wordsDTO.getWord();
         final String definition = wordsDTO.getDefinition();
 
-        Log.d("wordsDTO",wordsDTOList.size()+"0");
         viewHolder.txtKey.setText(wordsDTO.getWord());
 
         viewHolder.txtKey.setOnClickListener(new View.OnClickListener() {
@@ -76,14 +79,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         viewHolder.imgFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FavoretisDTO favoretisDTO = new FavoretisDTO(wordsDTO.getId(), wordsDTO.getWord(), wordsDTO.getDefinition(),"true");
-                boolean check = favoretisDAO.addFavoretis(favoretisDTO);
-                if (check) {
-                    viewHolder.imgFavorites.setImageResource(R.drawable.ic_favorited);
-                } else {
-                    Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
+                if(!checkBackground)
+                {
+                    FavoretisDTO favoretisDTO = new FavoretisDTO(wordsDTO.getId(), wordsDTO.getWord(), wordsDTO.getDefinition(),"true");
+                    boolean check = favoretisDAO.addFavoretis(favoretisDTO);
+                    if (check) {
+                        viewHolder.imgFavorites.setImageResource(R.drawable.ic_favorited);
+                    } else {
+                        Toast.makeText(context, "Erro", Toast.LENGTH_SHORT).show();
+                    }
+                    checkBackground = !checkBackground;
+                }else {
+                    viewHolder.imgFavorites.setImageResource(R.drawable.ic_not_favorite);
+                    favoretisDAO.DeleteFavo(id);
+                    checkBackground = !checkBackground;
                 }
+
+
             }
+
         });
     }
 
@@ -91,6 +105,5 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public int getItemCount() {
         return wordsDTOList.size();
     }
-
 
 }

@@ -22,13 +22,14 @@ import com.freelancer.buivanphuc.russianenglish.R;
 import com.freelancer.buivanphuc.russianenglish.adapter.SearchAdapter;
 import com.freelancer.buivanphuc.russianenglish.dao.WordsDAO;
 import com.freelancer.buivanphuc.russianenglish.dto.WordsDTO;
+import com.freelancer.buivanphuc.russianenglish.interfaces.OnClickItemWord;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-public class FragmentSeach extends Fragment implements View.OnClickListener {
+public class FragmentSeach extends Fragment implements View.OnClickListener , OnClickItemWord {
     EditText edtInput;
     RecyclerView lvSearch;
     WordsDAO mWordsDAO;
@@ -144,5 +145,10 @@ public class FragmentSeach extends Fragment implements View.OnClickListener {
         lvSearch.setLayoutManager(layoutManager);
         lvSearch.setAdapter(mSearchAdapter);
         mSearchAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(WordsDTO word) {
+
     }
 }
